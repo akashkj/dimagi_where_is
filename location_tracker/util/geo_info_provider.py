@@ -7,7 +7,7 @@ from location_tracker.models import GeoLocation
 
 GEO_URL_BASE = "http://api.geonames.org/searchJSON"
 MAX_RESULT_COUNT_DEFAULT = 3
-API_USERNAME_DEFAULT = "dimagi"
+API_USERNAME_DEFAULT = ""
 
 
 def get_env(name, default=None):
