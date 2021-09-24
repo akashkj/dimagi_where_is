@@ -16,16 +16,18 @@ def get_env(name, default=None):
 
 class GeoInfoProvider(object):
 
-    @staticmethod
-    def get_geo_data(location_query: str):
+    def __init__(self):
+        self.max_rows = get_env("MAX_RESULT_COUNT", MAX_RESULT_COUNT_DEFAULT)
+        self.api_user = get_env("API_USERNAME", API_USERNAME_DEFAULT)
+
+    def get_geo_data(self, location_query: str):
         location_obj = GeoLocation.objects.filter(
             location_name__icontains=location_query).first()
         if not location_obj:
             print("fetching geo data")
             params = {'q': location_query,
-                      'maxRows': get_env("MAX_RESULT_COUNT",
-                                         MAX_RESULT_COUNT_DEFAULT),
-                      'username': get_env("API_USERNAME", API_USERNAME_DEFAULT)}
+                      'maxRows': self.max_rows,
+                      'username': self.api_user}
             resp = requests.get(url=GEO_URL_BASE, params=params)
             location_obj = GeoInfoProvider.create_geo_object(resp)
         return location_obj
