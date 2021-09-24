@@ -1,0 +1,10 @@
+{% extends 'location_tracker/base.html' %}
+
+{% block content %}
+    <h2>Search Location</h2>
+    <form action="" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" name="submit" value="Submit">
+    </form>
+{% endblock %}
